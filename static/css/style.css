@@ -10,13 +10,13 @@
     --bg-page: #fff0f5; 
     
     /* Header: Rosa Intenso / Fresa (Tu solicitud) */
-    --header-bg: #ff477e; 
+    --header-bg: #ff005e; 
     
     /* Texto Header: Crema suave (Mate) */
     --text-header: #fff9e6; 
     
     /* Sombra Sólida Header: Azul pastel para contraste */
-    --text-shadow-matte: #8ecae6;
+    --text-shadow-matte: #8fcfef;
     
     /* Navegación: Azul cielo */
     --nav-bg: #bde0fe;
@@ -47,10 +47,12 @@ body {
     background-color: var(--bg-page);
     
     /* Patrón de fondo (Lunares Kawaii) */
-    background-image: radial-gradient(#ffb7b2 15%, transparent 16%), 
-                      radial-gradient(#ffb7b2 15%, transparent 16%);
-    background-size: 50px 50px;
+    background-image: url('../img/fondo.webp');
+    /* Esto hace que se repita */
+    background-repeat: repeat;
+    background-size: 128px 128px;
     background-position: 0 0, 25px 25px;
+    animation: diagonalScroll 10s linear infinite;
     
     display: flex;
     flex-direction: column;
@@ -66,7 +68,22 @@ h1, h2, h3 {
    3. HEADER (Encabezado)
    ========================================= */
 .main-header {
-    background-color: var(--header-bg);
+    background-color: var(--header-bg); /* Color de fondo por si sobra espacio */
+    padding: 3rem 1rem; /* Espacio para que el banner tenga altura */
+    text-align: center;
+    border-bottom: 8px solid var(--white);
+    
+    /* --- CONFIGURACIÓN DE LA IMAGEN DEL BANNER --- */
+    background-image: url('../img/banner.webp'); /* Tu imagen */
+    
+    /* "contain" asegura que la imagen se vea ENTERA siempre */
+    background-size: 130%; 
+    
+    /* La centra horizontal y verticalmente */
+    background-position: center;
+    
+    /* Evita que se repita como un patrón */
+    background-repeat: no-repeat;
     padding: 2rem 1rem;
     text-align: center;
     border-bottom: 8px solid var(--white);
@@ -74,7 +91,7 @@ h1, h2, h3 {
 }
 
 .header-content {
-    max-width: 1200px;
+    max-width: 70%;
     margin: 0 auto;
 }
 
@@ -89,6 +106,7 @@ h1, h2, h3 {
     /* EFECTO MATE: Borde blanco + Sombra sólida */
     -webkit-text-stroke: 2px var(--white);
     text-shadow: 4px 4px 0px var(--text-shadow-matte);
+    animation: bounce 2s infinite ease-in-out;
 }
 
 .bunny-icon {
@@ -117,48 +135,93 @@ h1, h2, h3 {
 }
 
 /* =========================================
-   4. NAVEGACIÓN (Responsive Flexbox)
+   4. NAVEGACIÓN DESLIZABLE (Estilo Galería)
    ========================================= */
 .main-nav {
     background-color: var(--nav-bg);
-    padding: 10px 0;
-    position: sticky; /* Se queda pegado arriba al hacer scroll */
+    background-color: var(--nav-bg);
+    /* Patrón de fondo (Lunares Kawaii) */
+    background-image: url('../img/fondo1.webp');
+    /* Esto hace que se repita */
+    background-repeat: repeat;
+    background-size: 128px 128px;
+    background-position: 0 0, 25px 25px;
+    animation: diagonalScroll 15s linear infinite;
+    padding: 20px 0;
+    position: sticky;
     top: 0;
     z-index: 1000;
     border-bottom: 4px solid var(--white);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    /* box-shadow: 0 4px 10px rgba(0,0,0,0.05); */
+    box-shadow: inset 0px 10px 20px var(--nav-bg), 
+                inset 0px -10px 20px var(--nav-bg); 
+    /* Para que el scroll sea fluido en iOS */
+    -webkit-overflow-scrolling: touch; 
 }
 
 .main-nav ul {
     list-style: none;
-    padding: 0;
+    padding: 0 20px; /* Margen a los lados para que no se pegue al borde */
     margin: 0;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap; /* CRUCIAL: Permite que los botones bajen si no caben */
-    gap: 10px; /* Espacio entre botones */
+    height: 5vh;
+    display: flex; /* Alineación horizontal */
+    align-items: center;
+    
+    /* LA CLAVE DEL DESLIZAMIENTO: */
+    flex-wrap: nowrap; /* Prohíbe que los botones bajen a otra línea */
+    overflow-x: auto;  /* Habilita el scroll horizontal */
+    
+    /* Espacio entre botones */
+    gap: 15px; 
+    
+    /* Comportamiento suave al soltar el dedo */
+    scroll-behavior: smooth;
 }
 
+/* Ocultar la barra de scroll (Scrollbar) fea del navegador */
+/* Para Chrome, Safari y Opera */
+.main-nav ul::-webkit-scrollbar {
+    display: none;
+}
+/* Para IE, Edge y Firefox */
+.main-nav ul {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Estilo de los Botones */
 .nav-link {
+    /* flex-shrink: 0 impide que los botones se aplasten si falta espacio */
+    flex-shrink: 0; 
+    
     text-decoration: none;
     color: var(--white);
     font-weight: 700;
+    font-size: 1rem;
     background-color: var(--btn-bg);
     padding: 10px 20px;
-    border-radius: 15px;
+    border-radius: 15px; /* Más redonditos tipo píldora */
     border: 3px solid var(--white);
-    display: inline-block;
-    transition: transform 0.2s, background-color 0.2s;
+    white-space: nowrap; /* Asegura que el texto del botón no se parta en dos */
     
-    /* Sombra sólida pequeña en los botones */
+    transition: transform 0.2s, background-color 0.2s;
     box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
 }
 
 .nav-link:hover {
     background-color: var(--btn-hover);
-    transform: translateY(-3px); /* Efecto de elevación física */
-    box-shadow: 2px 5px 0px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
 }
+
+/* Media Query para Escritorio (Opcional) */
+/* Si quieres que en PC se centre todo bonito si sobra espacio */
+@media (min-width: 768px) {
+    .main-nav ul {
+        justify-content: center; /* Centrado en pantallas grandes */
+        overflow-x: visible; /* Quita el scroll si caben todos */
+    }
+}
+
 
 /* =========================================
    5. CONTENEDOR PRINCIPAL
@@ -208,5 +271,21 @@ h1, h2, h3 {
     .nav-link {
         padding: 12px 30px;
         font-size: 1.2rem;
+    }
+}
+
+@keyframes diagonalScroll {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        /* Truco: Estos valores deben coincidir con el background-size 
+           que definiremos abajo.
+           
+           -100px en X: Mueve hacia la IZQUIERDA.
+           100px en Y: Mueve hacia ABAJO.
+           Resultado: Diagonal de Derecha-Arriba a Izquierda-Abajo.
+        */
+        background-position: -128px 128px; 
     }
 }
