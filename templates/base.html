@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bunny's Cosplay Atelier{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-content">
+            <div class="logo-area">
+                <span class="bunny-icon">🐰</span>
+                <h1>Bunny's Cosplay Atelier</h1>
+                <span class="bunny-icon">🐰</span>
+            </div>
+            <p class="tagline">¡Creando sueños, un cosplay a la vez!</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="{{ url_for('home') }}" class="nav-link">Inicio</a></li>
+            <li><a href="#" class="nav-link">Sobre Mí</a></li>
+            <li><a href="#" class="nav-link">Accesorios</a></li>
+            <li><a href="#" class="nav-link">Comisiones</a></li>
+            <li><a href="#" class="nav-link">Tienda</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="main-footer">
+        <div class="social-icons">
+            <span>📷 Instagram</span> | <span>🐦 Twitter</span> | <span>📘 Facebook</span>
+        </div>
+        <p>&copy; 2025 Bunny's Cosplay Atelier. Hecho con 💖 y magia.</p>
+    </footer>
+
+</body>
+</html>
